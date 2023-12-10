@@ -1,13 +1,33 @@
+@import url("./vendor/fonts/fonts.css");
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "SpaceMono", monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 1440px;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+.page {
+  font-weight: 700;
+  height: 100vh;
+  background-color: hsl(185, 41%, 84%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+input {
+  font-size: 24px;
+  font-family: "SpaceMono";
+  font-weight: 700;
+  color: hsl(183, 100%, 15%);
+  text-align: right;
+}
+button {
+  font-size: 24px;
+  font-family: "SpaceMono";
 }
