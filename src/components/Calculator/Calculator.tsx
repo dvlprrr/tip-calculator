@@ -2,6 +2,11 @@ import {
   CalculatorButton,
   CalculatorInput,
   CalculatorInputsWrapper,
+  CalculatorOutputButton,
+  CalculatorOutputDescription,
+  CalculatorOutputItemWrapper,
+  CalculatorOutputTitle,
+  CalculatorOutputValue,
   CalculatorOutputWrapper,
   CalculatorPersonInput,
   CalculatorTipList,
@@ -29,7 +34,29 @@ export default function Calculator() {
         <TitlePersonInput>Number of People</TitlePersonInput>
         <CalculatorPersonInput type="number" placeholder="0" />
       </CalculatorInputsWrapper>
-      <CalculatorOutputWrapper></CalculatorOutputWrapper>
+      <CalculatorOutputWrapper>
+        <div>
+          <CalculatorOutputItemWrapper>
+            <div>
+              <CalculatorOutputTitle>Tip Amount</CalculatorOutputTitle>
+              <CalculatorOutputDescription>
+                / person
+              </CalculatorOutputDescription>
+            </div>
+            <CalculatorOutputValue>$0.00</CalculatorOutputValue>
+          </CalculatorOutputItemWrapper>
+          <CalculatorOutputItemWrapper>
+            <div>
+              <CalculatorOutputTitle>Total</CalculatorOutputTitle>
+              <CalculatorOutputDescription>
+                / person
+              </CalculatorOutputDescription>
+            </div>
+            <CalculatorOutputValue>$0.00</CalculatorOutputValue>
+          </CalculatorOutputItemWrapper>
+        </div>
+        <CalculatorOutputButton>RESET</CalculatorOutputButton>
+      </CalculatorOutputWrapper>
     </CalculatorWrapper>
   );
 }
