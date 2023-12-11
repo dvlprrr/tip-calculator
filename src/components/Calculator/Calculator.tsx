@@ -2,6 +2,7 @@ import {
   CalculatorButton,
   CalculatorInput,
   CalculatorInputsWrapper,
+  CalculatorOutputWrapper,
   CalculatorPersonInput,
   CalculatorTipList,
   CalculatorWrapper,
@@ -26,8 +27,9 @@ export default function Calculator() {
           <CustomTipInput type="number" placeholder="Custom" />
         </CalculatorTipList>
         <TitlePersonInput>Number of People</TitlePersonInput>
-        <CalculatorPersonInput placeholder="0" />
+        <CalculatorPersonInput type="number" placeholder="0" />
       </CalculatorInputsWrapper>
+      <CalculatorOutputWrapper></CalculatorOutputWrapper>
     </CalculatorWrapper>
   );
 }

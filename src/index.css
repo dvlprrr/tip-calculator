@@ -4,7 +4,7 @@ body {
   font-family: "SpaceMono", monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 1440px;
+  background-color: hsl(185, 41%, 84%);
 }
 
 code {
@@ -12,9 +12,9 @@ code {
     monospace;
 }
 .page {
+  margin: 100px auto;
+  max-width: 1440px;
   font-weight: 700;
-  height: 100vh;
-  background-color: hsl(185, 41%, 84%);
   display: flex;
   flex-direction: column;
   align-items: center;
