@@ -1,6 +1,9 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import dollarLogo from "../../images/icon-dollar.svg";
 import personLogo from "../../images/icon-person.svg";
+interface CalculatorButtonProps {
+  active?: boolean;
+}
 export const CalculatorWrapper = styled.div`
   width: 60%;
   background-color: hsl(0, 0%, 100%);
@@ -62,7 +65,7 @@ export const CustomTipInput = styled.input`
     margin: 0;
   }
 `;
-export const CalculatorButton = styled.button`
+export const CalculatorButton = styled.button<CalculatorButtonProps>`
   background-color: hsl(183, 100%, 15%);
   color: hsl(0, 0%, 100%);
   cursor: pointer;
@@ -74,7 +77,14 @@ export const CalculatorButton = styled.button`
     color: hsl(183, 100%, 15%);
     background-color: hsl(173, 61%, 77%);
   }
+  ${({ active }) =>
+    active &&
+    css`
+      background-color: hsl(172, 67%, 45%);
+      color: hsl(183, 100%, 15%);
+    `}
 `;
+
 export const CalculatorPersonInput = styled(CalculatorInput)`
   background: url(${personLogo}) no-repeat scroll 20px hsl(189, 41%, 97%);
 `;
@@ -117,6 +127,10 @@ export const CalculatorOutputButton = styled.button`
   border: none;
   border-radius: 8px;
   padding: 8px;
+  cursor: pointer;
+  &:disabled {
+    cursor: default;
+  }
   &:hover {
     transition: 0.3s;
     background-color: hsl(173, 61%, 77%);

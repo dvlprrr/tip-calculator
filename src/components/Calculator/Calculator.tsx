@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { handleTipAmountPerPerson } from "../../utils/handleTipAmountPerPerson";
+import { handleTotalCheckPerPerson } from "../../utils/handleTotalCheckPerPerson";
 import {
   CalculatorButton,
   CalculatorInput,
@@ -17,22 +20,66 @@ import {
   TitlePersonInput,
 } from "./styled";
 export default function Calculator() {
+  const percent = [5, 10, 15, 20, 50];
+  const [bill, setBill] = useState<string>();
+  const [people, setPeople] = useState<string>();
+  const [customPercent, setCustomPercent] = useState<string | number>();
+  const [tipAmount, setTipAmount] = useState<string>();
+  const [totalCheck, setTotalCheck] = useState<string>();
+  const [activeIndex, setActiveIndex] = useState<number | string>();
+  const [error, setError] = useState<boolean>();
   return (
     <CalculatorWrapper>
       <CalculatorInputsWrapper>
         <InputTitle>Bill</InputTitle>
-        <CalculatorInput maxLength={3} type="number" placeholder="0" />
+        <CalculatorInput
+          value={bill}
+          onChange={(e) => {
+            setBill(e.target.value);
+          }}
+          type="number"
+          placeholder="0"
+        />
         <InputTitleTip>Select Tip %</InputTitleTip>
         <CalculatorTipList>
-          <CalculatorButton>5%</CalculatorButton>
-          <CalculatorButton>10%</CalculatorButton>
-          <CalculatorButton>15%</CalculatorButton>
-          <CalculatorButton>20%</CalculatorButton>
-          <CalculatorButton>25%</CalculatorButton>
-          <CustomTipInput type="number" placeholder="Custom" />
+          {percent.map((item, index) => {
+            return (
+              <CalculatorButton
+                active={index === activeIndex ?? true}
+                onClick={() => {
+                  setActiveIndex(index);
+                  setTipAmount(handleTipAmountPerPerson(bill, people, item));
+                  setTotalCheck(handleTotalCheckPerPerson(bill, people, item));
+                }}
+              >
+                {item}%
+              </CalculatorButton>
+            );
+          })}
+          <CustomTipInput
+            value={customPercent}
+            onChange={(e) => {
+              setCustomPercent(e.target.value);
+              setTipAmount(
+                handleTipAmountPerPerson(bill, people, e.target.value)
+              );
+              setTotalCheck(
+                handleTotalCheckPerPerson(bill, people, e.target.value)
+              );
+            }}
+            type="number"
+            placeholder="Custom"
+          />
         </CalculatorTipList>
         <TitlePersonInput>Number of People</TitlePersonInput>
-        <CalculatorPersonInput type="number" placeholder="0" />
+        <CalculatorPersonInput
+          value={people}
+          onChange={(e) => {
+            setPeople(e.target.value);
+          }}
+          type="number"
+          placeholder="0"
+        />
       </CalculatorInputsWrapper>
       <CalculatorOutputWrapper>
         <div>
@@ -43,7 +90,9 @@ export default function Calculator() {
                 / person
               </CalculatorOutputDescription>
             </div>
-            <CalculatorOutputValue>$0.00</CalculatorOutputValue>
+            <CalculatorOutputValue>
+              ${Boolean(tipAmount) ? tipAmount : "0.00"}
+            </CalculatorOutputValue>
           </CalculatorOutputItemWrapper>
           <CalculatorOutputItemWrapper>
             <div>
@@ -52,10 +101,23 @@ export default function Calculator() {
                 / person
               </CalculatorOutputDescription>
             </div>
-            <CalculatorOutputValue>$0.00</CalculatorOutputValue>
+            <CalculatorOutputValue>
+              ${Boolean(totalCheck) ? totalCheck : "0.00"}
+            </CalculatorOutputValue>
           </CalculatorOutputItemWrapper>
         </div>
-        <CalculatorOutputButton>RESET</CalculatorOutputButton>
+        <CalculatorOutputButton
+          onClick={() => {
+            setBill("");
+            setPeople("");
+            setTipAmount("");
+            setTotalCheck("");
+            setCustomPercent("");
+            setActiveIndex("");
+          }}
+        >
+          RESET
+        </CalculatorOutputButton>
       </CalculatorOutputWrapper>
     </CalculatorWrapper>
   );
