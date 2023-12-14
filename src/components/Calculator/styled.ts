@@ -13,9 +13,25 @@ export const CalculatorWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  @media (max-width: 1024px) {
+    width: 80%;
+  }
+  @media (max-width: 768px) {
+    width: 65%;
+    gap: 40px;
+    flex-direction: column;
+  }
+  @media (max-width: 426px) {
+    width: 85%;
+    margin-top: 40px;
+  }
 `;
 export const CalculatorInputsWrapper = styled.div`
   width: 48%;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 export const CalculatorInput = styled.input`
   margin-top: 10px;
@@ -47,6 +63,9 @@ export const CalculatorTipList = styled.div`
   display: grid;
   grid-template: 1fr 1fr / 1fr 1fr 1fr;
   gap: 10px;
+  @media (max-width: 426px) {
+    grid-template: 1fr 1fr 1fr / 1fr 1fr;
+  }
 `;
 export const CustomTipInput = styled.input`
   background-color: hsl(189, 41%, 97%);
@@ -66,16 +85,19 @@ export const CustomTipInput = styled.input`
   }
 `;
 export const CalculatorButton = styled.button<CalculatorButtonProps>`
-  background-color: hsl(183, 100%, 15%);
+  background-color: ${({ disabled }) =>
+    disabled ? "hsl(186, 14%, 43%)" : "hsl(183, 100%, 15%)"};
   color: hsl(0, 0%, 100%);
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
   border: none;
   border-radius: 5px;
   padding: 5px;
+  transition: background-color 0.3s, color 0.3s;
+  /* hsl(0, 0%, 50%) */
   &:hover {
-    transition: 0.3s;
-    color: hsl(183, 100%, 15%);
-    background-color: hsl(173, 61%, 77%);
+    background-color: ${({ disabled }) =>
+      disabled ? "" : "hsl(173, 61%, 77%)"};
+    color: ${({ disabled }) => (disabled ? "" : "hsl(183, 100%, 15%)")};
   }
   ${({ active }) =>
     active &&
@@ -100,19 +122,35 @@ export const CalculatorOutputWrapper = styled.div`
   justify-content: space-between;
   background-color: hsl(183, 100%, 15%);
   border-radius: 10px;
+  @media (max-width: 768px) {
+    width: 100%;
+    gap: 20px;
+  }
 `;
 export const CalculatorOutputTitle = styled.p`
   margin: 0;
   color: hsl(0, 0%, 100%);
+  @media (max-width: 500px) {
+    font-size: 15px;
+  }
 `;
 export const CalculatorOutputDescription = styled.p`
   margin: 0;
   color: hsl(184, 14%, 56%);
+  @media (max-width: 500px) {
+    font-size: 13px;
+  }
 `;
 export const CalculatorOutputValue = styled.p`
   margin: 0;
   color: hsl(172, 67%, 45%);
   font-size: 50px;
+  @media (max-width: 1200px) {
+    font-size: 40px;
+  }
+  @media (max-width: 500px) {
+    font-size: 30px;
+  }
 `;
 
 export const CalculatorOutputItemWrapper = styled.div`
@@ -123,16 +161,15 @@ export const CalculatorOutputItemWrapper = styled.div`
 export const CalculatorOutputButton = styled.button`
   font-size: 20px;
   color: hsl(183, 100%, 15%);
-  background-color: hsl(172, 67%, 45%);
+  background-color: ${({ disabled }) =>
+    disabled ? "hsl(186, 14%, 43%)" : "hsl(172, 67%, 45%)"};
   border: none;
   border-radius: 8px;
   padding: 8px;
-  cursor: pointer;
-  &:disabled {
-    cursor: default;
-  }
+  cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
+  transition: background-color 0.3s;
   &:hover {
-    transition: 0.3s;
-    background-color: hsl(173, 61%, 77%);
+    ${({ disabled }) =>
+      disabled ? "" : "background-color: hsl(173, 61%, 77%);"};
   }
 `;

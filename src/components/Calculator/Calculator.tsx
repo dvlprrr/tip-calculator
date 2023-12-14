@@ -28,6 +28,26 @@ export default function Calculator() {
   const [totalCheck, setTotalCheck] = useState<string>();
   const [activeIndex, setActiveIndex] = useState<number | string>();
   const [error, setError] = useState<boolean>();
+  // const [isDisabled, setIsDisabled] = useState<boolean>(true);
+
+  const handlePercent = (index: number, item: number) => {
+    setActiveIndex(index);
+    setTipAmount(handleTipAmountPerPerson(bill, people, item));
+    setTotalCheck(handleTotalCheckPerPerson(bill, people, item));
+  };
+  const handleCustomPercent = (item: string) => {
+    setCustomPercent(item);
+    setTipAmount(handleTipAmountPerPerson(bill, people, item));
+    setTotalCheck(handleTotalCheckPerPerson(bill, people, item));
+  };
+  const restAllStates = () => {
+    setBill("");
+    setPeople("");
+    setTipAmount("");
+    setTotalCheck("");
+    setCustomPercent("");
+    setActiveIndex("");
+  };
   return (
     <CalculatorWrapper>
       <CalculatorInputsWrapper>
@@ -45,11 +65,11 @@ export default function Calculator() {
           {percent.map((item, index) => {
             return (
               <CalculatorButton
-                active={index === activeIndex ?? true}
+                disabled={!(bill && people)}
+                key={index}
+                active={index === activeIndex ? true : false}
                 onClick={() => {
-                  setActiveIndex(index);
-                  setTipAmount(handleTipAmountPerPerson(bill, people, item));
-                  setTotalCheck(handleTotalCheckPerPerson(bill, people, item));
+                  handlePercent(index, item);
                 }}
               >
                 {item}%
@@ -58,14 +78,11 @@ export default function Calculator() {
           })}
           <CustomTipInput
             value={customPercent}
+            onClick={() => {
+              setActiveIndex("");
+            }}
             onChange={(e) => {
-              setCustomPercent(e.target.value);
-              setTipAmount(
-                handleTipAmountPerPerson(bill, people, e.target.value)
-              );
-              setTotalCheck(
-                handleTotalCheckPerPerson(bill, people, e.target.value)
-              );
+              handleCustomPercent(e.target.value);
             }}
             type="number"
             placeholder="Custom"
@@ -107,14 +124,8 @@ export default function Calculator() {
           </CalculatorOutputItemWrapper>
         </div>
         <CalculatorOutputButton
-          onClick={() => {
-            setBill("");
-            setPeople("");
-            setTipAmount("");
-            setTotalCheck("");
-            setCustomPercent("");
-            setActiveIndex("");
-          }}
+          disabled={!(bill || people)}
+          onClick={() => restAllStates()}
         >
           RESET
         </CalculatorOutputButton>
