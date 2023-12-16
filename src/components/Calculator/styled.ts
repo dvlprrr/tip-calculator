@@ -145,6 +145,8 @@ export const CalculatorOutputValue = styled.p`
   margin: 0;
   color: hsl(172, 67%, 45%);
   font-size: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   @media (max-width: 1200px) {
     font-size: 40px;
   }
